@@ -1,14 +1,22 @@
+# Core packages
 pandas
 numpy
 seaborn
 matplotlib
 scikit-learn
+
+# ML/Boosting libraries
 xgboost
 catboost
+
+# Utilities
 setuptools
 colorlog
 dill
+
+# Web framework
 flask
 flask-wtf
-scikit-learn
+
+# Install your project in editable mode
 -e .

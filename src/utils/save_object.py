@@ -5,7 +5,7 @@ import dill
 from src.utils.exception import CustomException
 
 def save_object(file_path, obj):
-    """This function is used for saving Objects"""
+    """This function is used for saving"""
     try:
         dir_path = os.path.dirname(file_path)
 

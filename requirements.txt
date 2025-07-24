@@ -10,4 +10,5 @@ colorlog
 dill
 flask
 flask-wtf
+scikit-learn
 -e .

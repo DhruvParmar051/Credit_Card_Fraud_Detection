@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prediction Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+
+    <div class="container">
+        <h1>📝 Prediction Result</h1>
+        <p><strong>Transaction Status:</strong> {{ result.message }}</p>
+        <p><strong>Fraud Probability:</strong> {{ result.fraud_probability }}</p>
+
+        <a href="/">🔄 Try Another Transaction</a>
+    </div>
+
+</body>
+</html>

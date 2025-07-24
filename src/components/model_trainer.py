@@ -1,11 +1,8 @@
+"""Module to train and evaluate machine learning models."""
+
 import os
 import sys
 from dataclasses import dataclass
-
-from src.utils.exception import CustomException
-from src.utils.logger import setup_logger
-from src.utils.save_object import save_object
-from src.utils.evaluate_model import evaluate_model
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
@@ -14,14 +11,24 @@ from xgboost import XGBClassifier
 from catboost import CatBoostClassifier
 from sklearn.neighbors import KNeighborsClassifier
 
+from src.utils.exception import CustomException
+from src.utils.logger import setup_logger
+from src.utils.save_object import save_object
+from src.utils.evaluate_model import evaluate_model
+
 os.environ["LOKY_MAX_CPU_COUNT"] = "6"
 logger = setup_logger()
 
+
 @dataclass
 class ModelTrainerConfig:
+    """Configuration for model trainer."""
     trained_model_file_path: str = os.path.join("artifacts", "model.pkl")
 
+
 class ModelTrainer:
+    """Class responsible for training and saving the best model."""
+
     def __init__(self):
         self.trained_model_config = ModelTrainerConfig()
 
@@ -32,13 +39,13 @@ class ModelTrainer:
         try:
             logger.info("📂 Splitting training and testing data...")
 
-            X_train, y_train, X_test, y_test = (
-                train_array[:, :-1],  
-                train_array[:, -1],   
-                test_array[:, :-1],   
+            x_train, y_train, x_test, y_test = (
+                train_array[:, :-1],
+                train_array[:, -1],
+                test_array[:, :-1],
                 test_array[:, -1],
             )
-            
+
             logger.info("🚀 Initializing classification models...")
 
             models = {
@@ -87,15 +94,17 @@ class ModelTrainer:
             }
 
             logger.info("🔍 Evaluating models with hyperparameter tuning...")
-            model_report = evaluate_model(X_train, y_train, X_test, y_test, models, params)
+            model_report = evaluate_model(x_train, y_train, x_test, y_test, models, params)
 
             best_model_name = max(model_report, key=lambda x: model_report[x]["f1_score"])
             best_model_score = model_report[best_model_name]["f1_score"]
 
             if best_model_score < 0.6:
-                raise CustomException("❌ No suitable model found with an F1-score above 0.6")
+                raise CustomException("❌ No suitable model found with an F1-score above 0.6", sys)
 
-            logger.info(f"🏆 Best model found: {best_model_name} with F1-score: {best_model_score:.4f}")
+            logger.info(
+                "🏆 Best model found: %s with F1-score: %.4f", best_model_name, best_model_score
+            )
 
             best_model = models[best_model_name]
 
@@ -108,5 +117,5 @@ class ModelTrainer:
             return best_model_score
 
         except Exception as e:
-            logger.error(f"❌ Model training failed: {str(e)}")
-            raise CustomException(e, sys)
+            logger.error("❌ Model training failed: %s", str(e))
+            raise CustomException(e, sys) from e

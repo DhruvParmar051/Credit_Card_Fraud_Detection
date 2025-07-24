@@ -157,6 +157,6 @@ This project is open-source under the **MIT License**.
 
 🔗 **Author**: Dhruv Parmar  
 📧 **Email**: <dhruvparmar051@gmail.com>  
-🔗 **GitHub**: [DHRUV051](https://github.com/DHRUV051)
+🔗 **GitHub**: [DhruvParmar051](https://github.com/DhruvParmar051)
 
 ---

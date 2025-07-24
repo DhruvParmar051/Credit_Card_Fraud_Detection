@@ -1,6 +1,5 @@
 import os
 import sys
-
 import dill 
 
 from src.utils.exception import CustomException
@@ -15,4 +14,4 @@ def save_object(file_path, obj):
             dill.dump(obj, file_obj)
 
     except Exception as e:
-        raise CustomException(e, sys)
+        raise CustomException(e, sys) from e

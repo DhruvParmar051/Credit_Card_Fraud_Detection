@@ -12,6 +12,7 @@ from src.utils.exception import CustomException
 
 logger = setup_logger()
 
+# pylint: disable=too-few-public-methods
 
 @dataclass
 class DataIngestionConfig:
@@ -20,7 +21,7 @@ class DataIngestionConfig:
     test_data_path: str = os.path.join("artifacts", "test.csv")
     raw_data_path: str = os.path.join("artifacts", "data.csv")
 
-
+# pylint: disable=too-few-public-methods
 class DataIngestion:
     """Handles the process of ingesting raw data and splitting it into train/test sets."""
 

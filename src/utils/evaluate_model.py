@@ -1,3 +1,6 @@
+# evaluate_model.py
+# pylint: disable=invalid-name, too-many-arguments, too-many-positional-arguments, too-many-locals
+
 """Evaluate multiple classification models and log their performance metrics."""
 
 import sys
@@ -9,7 +12,7 @@ from src.utils.exception import CustomException
 
 logger = setup_logger()
 
-
+# pylint: disable=too-many-arguments
 def evaluate_model(X_train, y_train, X_test, y_test, models, params):
     """
     Evaluates classification models using accuracy, precision, recall, and F1-score.

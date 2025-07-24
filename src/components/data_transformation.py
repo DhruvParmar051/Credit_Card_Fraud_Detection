@@ -63,6 +63,7 @@ class DataTransformation:
             logger.error("❌ Data Preprocessor Failed: %s", str(e))
             raise CustomException(e, sys) from e
 
+    # pylint: disable=too-many-locals
     def initiate_data_transformation(self, train_path, test_path):
         """
         Applies transformation pipeline to training and testing datasets.

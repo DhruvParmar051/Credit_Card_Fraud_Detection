@@ -6,10 +6,13 @@ from dataclasses import dataclass
 
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier, GradientBoostingClassifier
+from sklearn.ensemble import (
+    RandomForestClassifier,
+    AdaBoostClassifier,
+    GradientBoostingClassifier)
+from sklearn.neighbors import KNeighborsClassifier
 from xgboost import XGBClassifier
 from catboost import CatBoostClassifier
-from sklearn.neighbors import KNeighborsClassifier
 
 from src.utils.exception import CustomException
 from src.utils.logger import setup_logger
@@ -25,7 +28,7 @@ class ModelTrainerConfig:
     """Configuration for model trainer."""
     trained_model_file_path: str = os.path.join("artifacts", "model.pkl")
 
-
+# pylint: disable=too-few-public-methods
 class ModelTrainer:
     """Class responsible for training and saving the best model."""
 
@@ -34,7 +37,9 @@ class ModelTrainer:
 
     def initiate_model_trainer(self, train_array, test_array):
         """
-        Trains multiple classification models, selects the best model based on F1-score, and saves it.
+        Trains multiple classification models, 
+        selects the best model based on F1-score, 
+        and saves it.
         """
         try:
             logger.info("📂 Splitting training and testing data...")
@@ -103,7 +108,8 @@ class ModelTrainer:
                 raise CustomException("❌ No suitable model found with an F1-score above 0.6", sys)
 
             logger.info(
-                "🏆 Best model found: %s with F1-score: %.4f", best_model_name, best_model_score
+                "🏆 Best model found: %s with F1-score: %.4f", best_model_name, 
+                best_model_score
             )
 
             best_model = models[best_model_name]
